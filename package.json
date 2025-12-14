@@ -1,0 +1,16 @@
+{
+  "name": "etl-ocorrencias-polars",
+  "version": "1.0.0",
+  "description": "ETL de dados de ocorrências utilizando Polars com JavaScript (Node.js)",
+  "type": "module",
+  "main": "etl_ocorrencias_polars.js",
+  "scripts": {
+    "start": "node etl_ocorrencias_polars.js"
+  },
+  "author": "Seu Nome",
+  "license": "MIT",
+  "dependencies": {
+    "nodejs-polars": "^0.20.1"
+  },
+  "keywords": []
+}

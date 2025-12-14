@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>SIGO Analytics Dashboard</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- PapaParse para ler CSV -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <h1>SIGO – Dashboard de Ocorrências</h1>
+    <p>Análise analítica a partir do backend SIGO</p>
+  </header>
+
+  <section class="filters">
+    <label>
+      Prioridade:
+      <select id="priorityFilter">
+        <option value="all">Todas</option>
+        <option value="low">Baixa</option>
+        <option value="medium">Média</option>
+        <option value="high">Alta</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="charts">
+    <div class="chart-card">
+      <h2>Ocorrências por Categoria</h2>
+      <canvas id="categoryChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h2>Ocorrências por Prioridade</h2>
+      <canvas id="priorityChart"></canvas>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
