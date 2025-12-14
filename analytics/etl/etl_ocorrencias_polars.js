@@ -15,7 +15,7 @@ import pl from "nodejs-polars";
 const SIGO_API_URL = "https://SEU_BACKEND_SIGO/analysis/occurrence";
 const SIGO_API_TOKEN = "SEU_TOKEN_AQUI";
 
-const OUTPUT_DIR = "./data/processed/";
+const OUTPUT_DIR = "../data/processed/";
 
 // =====================================================
 // EXTRACT - Consumo da API SIGO
