@@ -11,10 +11,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import VerifyPage from "./pages/VerifyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { CARGOS } from "./utils/permissions";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import DashboardDS from "./pages/DashboardDS/index.jsx";
-import Home from "./pages/Home/index.jsx";
-import Login from "./pages/Login/index.jsx";
 
 function AppRoutes() {
   return (
@@ -23,6 +21,8 @@ function AppRoutes() {
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/verify-code" element={<VerifyPage />} />
+
+      {/* ROTA DO DASHBOARD DE DATA SCIENCE ADICIONADA */}
       <Route path="/dashboard-ds" element={<DashboardDS />} />
 
       <Route element={<Layout />}>
