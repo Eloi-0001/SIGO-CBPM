@@ -38,11 +38,11 @@ O principal objetivo deste módulo é extrair insights de um conjunto de dados b
 | `src/routes.jsx` | Adição da nova rota `<Route path="/dashboard-ds" element={<DashboardDS />} />` para permitir o acesso ao Dashboard analítico. |
 | `package.json` | Inclusão da dependência essencial `chart.js` e `react-chartjs-2`. |
 
-### Back-End / Lógica (Assumindo um projeto Python ou um arquivo de lógica)
+### Back-End / Lógica (do dashboard)
 
 | Arquivo | Descrição |
 | :--- | :--- |
-| `data_science_logic.py` | (Assumindo que você o criou) Contém a lógica Python que lê o `dados.csv`, usa o Polars para limpar e agregar os dados (contagem por categoria), treina o modelo Scikit-learn e, idealmente, expõe esses dados agregados via um *endpoint* da API (ex: `/analysis/occurrence`). |
+| `data_science_logic.py` | Contém a lógica Python que lê o `dados.csv`, usa o Polars para limpar e agregar os dados (contagem por categoria), treina o modelo Scikit-learn e, idealmente, expõe esses dados agregados via um *endpoint* da API (ex: `/analysis/occurrence`). |
 | `dados.csv` | Conjunto de dados brutos de ocorrências utilizado para todas as análises. |
 
 -----
