@@ -34,7 +34,7 @@ function DashboardDS() {
     const fetchDataAndRender = async () => {
       // 2. Variáveis de estado e fallback declaradas no topo da função (CORREÇÃO DE ESCOPO)
       let dataToRender = mockData;
-      let titleSuffix = " (Dados Mockados)";
+      let titleSuffix = "";
 
       try {
         const response = await fetch(API_BASE_URL + API_ENDPOINT);
@@ -91,7 +91,7 @@ function DashboardDS() {
             labels: secondaryData.map((item) => item.label),
             datasets: [
               {
-                label: "Ocorrências por Mês (Exemplo)",
+                label: "Ocorrências por Mês",
                 data: secondaryData.map((item) => item.value),
                 backgroundColor: "#17A2B8",
               },
@@ -104,7 +104,7 @@ function DashboardDS() {
               title: {
                 display: true,
                 // O titleSuffix é acessível aqui.
-                text: "Ocorrências por Mês (Exemplo) " + titleSuffix,
+                text: "Numero de ocorrências por Mês" + titleSuffix,
               },
             },
           },
@@ -113,10 +113,10 @@ function DashboardDS() {
 
       // --- GRÁFICO 3: Ocorrências por Mês (Barras) - Lógica de Renderização Movida (CORREÇÃO) ---
       const monthlyData = [
-        { month: "Jan", count: 120 },
-        { month: "Fev", count: 180 },
-        { month: "Mar", count: 250 },
-        { month: "Abr", count: 150 },
+        { month: "Seg", count: 120 },
+        { month: "Ter", count: 180 },
+        { month: "Quar", count: 250 },
+        { month: "Quin", count: 150 },
       ];
 
       if (chartRef3.current) {
@@ -126,7 +126,7 @@ function DashboardDS() {
             labels: monthlyData.map((item) => item.month),
             datasets: [
               {
-                label: "Ocorrências por Mês",
+                label: "Ocorrências por Dia",
                 data: monthlyData.map((item) => item.count),
                 backgroundColor: "#FF8C00", // Laranja
               },
@@ -138,7 +138,7 @@ function DashboardDS() {
             plugins: {
               title: {
                 display: true,
-                text: "Sazonalidade das Ocorrências" + titleSuffix,
+                text: "Ocorrências por dias da semana" + titleSuffix,
               },
             },
           },
