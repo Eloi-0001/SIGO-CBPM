@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-// 1. DEFINIÇÃO DO OBJETO 'styles' MOVIDA PARA O TOPO (CORREÇÃO DO ERRO)
+// 1. DEFINIÇÃO DO OBJETO 'styles' (MANTIDO NO TOPO)
 const styles = {
   chartContainer: {
     backgroundColor: "white",
@@ -26,10 +26,13 @@ const mockData = [
 function DashboardDS() {
   const chartRef1 = useRef(null); // Ref para o Gráfico 1
   const chartRef2 = useRef(null); // Ref para o Gráfico 2
+  const chartRef3 = useRef(null); // Ref para o Gráfico 3 (Ocorrências por Mês)
+  const chartRef4 = useRef(null); // Ref para o Gráfico 4 (Prioridade)
 
   useEffect(() => {
     // Função para buscar dados ou usar mock
     const fetchDataAndRender = async () => {
+      // 2. Variáveis de estado e fallback declaradas no topo da função (CORREÇÃO DE ESCOPO)
       let dataToRender = mockData;
       let titleSuffix = " (Dados Mockados)";
 
@@ -74,9 +77,8 @@ function DashboardDS() {
         });
       }
 
-      // --- GRÁFICO 2: Exemplo de Outro Gráfico (Barras) ---
+      // --- GRÁFICO 2: Exemplo de Outro Gráfico (Barras - Sem dados da API) ---
       if (chartRef2.current) {
-        // Exemplo de dados diferentes para o segundo gráfico
         const secondaryData = [
           { label: "Jan", value: 50 },
           { label: "Fev", value: 70 },
@@ -84,7 +86,7 @@ function DashboardDS() {
         ];
 
         new Chart(chartRef2.current, {
-          type: "bar", // Tipo Bar
+          type: "bar",
           data: {
             labels: secondaryData.map((item) => item.label),
             datasets: [
@@ -101,7 +103,74 @@ function DashboardDS() {
             plugins: {
               title: {
                 display: true,
-                text: "Ocorrências por Mês (Exemplo)",
+                // O titleSuffix é acessível aqui.
+                text: "Ocorrências por Mês (Exemplo) " + titleSuffix,
+              },
+            },
+          },
+        });
+      }
+
+      // --- GRÁFICO 3: Ocorrências por Mês (Barras) - Lógica de Renderização Movida (CORREÇÃO) ---
+      const monthlyData = [
+        { month: "Jan", count: 120 },
+        { month: "Fev", count: 180 },
+        { month: "Mar", count: 250 },
+        { month: "Abr", count: 150 },
+      ];
+
+      if (chartRef3.current) {
+        new Chart(chartRef3.current, {
+          type: "bar",
+          data: {
+            labels: monthlyData.map((item) => item.month),
+            datasets: [
+              {
+                label: "Ocorrências por Mês",
+                data: monthlyData.map((item) => item.count),
+                backgroundColor: "#FF8C00", // Laranja
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: true,
+                text: "Sazonalidade das Ocorrências" + titleSuffix,
+              },
+            },
+          },
+        });
+      }
+
+      // --- GRÁFICO 4: Prioridade (Pizza) - Lógica de Renderização Movida (CORREÇÃO) ---
+      const priorityData = [
+        { priority: "Baixa", count: 600 },
+        { priority: "Média", count: 350 },
+        { priority: "Alta", count: 150 },
+      ];
+
+      if (chartRef4.current) {
+        new Chart(chartRef4.current, {
+          type: "pie", // Gráfico de Pizza
+          data: {
+            labels: priorityData.map((item) => item.priority),
+            datasets: [
+              {
+                data: priorityData.map((item) => item.count),
+                backgroundColor: ["#28A745", "#FFC107", "#DC3545"], // Verde, Amarelo, Vermelho
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: true,
+                text: "Distribuição de Prioridades" + titleSuffix,
               },
             },
           },
@@ -110,7 +179,7 @@ function DashboardDS() {
     };
 
     fetchDataAndRender();
-  }, []);
+  }, []); // Dependência vazia, roda apenas uma vez
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#f9f9f9" }}>
@@ -124,27 +193,36 @@ function DashboardDS() {
         Dashboard Analítico
       </h1>
 
-      {/* CONTAINER DOS GRÁFICOS - USA GRID PARA ORGANIZAÇÃO */}
+      {/* CONTAINER PRINCIPAL DOS GRÁFICOS (REMOÇÃO DA DUPLICAÇÃO) */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))", // Cria colunas responsivas
+          gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))", // 2x2 Layout Responsivo
           gap: "20px",
           marginTop: "30px",
         }}
       >
-        {/* Gráfico 1: Frequência de Ocorrências (Doughnut) */}
+        {/* GRÁFICO 1 */}
         <div style={styles.chartContainer}>
           <canvas ref={chartRef1}></canvas>
         </div>
 
-        {/* Gráfico 2: Ocorrências por Mês (Barras) */}
+        {/* GRÁFICO 2 */}
         <div style={styles.chartContainer}>
           <canvas ref={chartRef2}></canvas>
         </div>
 
-        {/* Adicione mais divs para outros gráficos aqui */}
+        {/* GRÁFICO 3 (NOVO) */}
+        <div style={styles.chartContainer}>
+          <canvas ref={chartRef3}></canvas>
+        </div>
+
+        {/* GRÁFICO 4 (NOVO) */}
+        <div style={styles.chartContainer}>
+          <canvas ref={chartRef4}></canvas>
+        </div>
       </div>
+      {/* O SEGUNDO DIV/GRID DUPLICADO FOI REMOVIDO AQUI */}
     </div>
   );
 }
