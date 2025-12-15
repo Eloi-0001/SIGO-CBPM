@@ -5,7 +5,6 @@
 // =====================================================
 
 import fs from "fs";
-import fetch from "node-fetch";
 import pl from "nodejs-polars";
 
 // =====================================================
